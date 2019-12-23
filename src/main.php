@@ -2,7 +2,7 @@
     require_once "funciones.php";
  ?>
 <?php
-  $url = "http://www.dialsl.es/";
+  $url = "https://www.youtube.com/";
   $file = "resultado.txt";
 
   if(!is_file($file))
