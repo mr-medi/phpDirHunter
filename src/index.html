@@ -2,69 +2,20 @@
 <html>
   <head>
       <meta charset="utf-8">
-      <script type="text/javascript" src="d3/d3.min.js"> </script>
-      <script type="text/javascript">
-      function getIps()
-      {
-        let ips = (document.getElementById("ip").value).split(",");
-        let arrayIps = new Array();
-        let idIps="{\nNumeroIps : "+ips.length+",\n";
-        for(let i in ips)
-        {
-         idIps += "ip"+i;
-         idIps += ":\"";
-          if(isIpWellFormed(ips[i]))
-          {
-            if(i != ips.length -1)
-            {
-              idIps += ips[i]+"\",";
-            }
-            else
-            {
-              idIps += ips[i];
-            }
-            idIps += "\"\n";
-          }
-          idIps += ":";
-        }
-        idIps += "};"
-        //alert(idIps);
-        return idIps;
-       }
-
-      function sendIps()
-      {
-        var xhr = new XMLHttpRequest();
-        let ips = getIps();
-        xhr.open("GET", "trace.php?x=" + ips, true);
-        xhr.onreadystatechange = function()
-        {
-            if(xhr.readyState == 4 && xhr.status == 200)
-            {
-                alert(xhr.responseText);
-            }
-        }
-        xhr.send();
-      }
-
-
-      function isIpWellFormed(ipaddress)
-      {
-        if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress))
-        {
-          return true;
-        }
-        return false;
-      }
-      </script>
+      <title>phpDirHunter</title>
+      <!--<script type="text/javascript" src="d3/d3.min.js"> </script>-->
   </head>
   <body>
     <div id="ContenidoWeb">
     </div>
     <h1>Introduzca la url:</h1><br>
     <form action="main.php" method="post">
+      <h2>Url:</h2><br>
       <input type="text" name="url" size="100" placeholder="https://www.youtube.com/"><br>
-      <input type="submit" name="enviar" value="Buscar directorios">
+      <h2>Opcion:</h2><br>
+      <input type="radio" name="option" value="fuerzaBruta">Fuerza Bruta<br>
+      <input type="radio" name="option" value="dic">Diccionario<br>
+      <input type="submit" name="enviar" value="Buscar directorios"><br>
     </form>
   </body>
 </html>

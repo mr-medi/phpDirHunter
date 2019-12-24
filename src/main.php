@@ -4,11 +4,19 @@
 <?php
   if(isset($_POST["enviar"]))
   {
-    if(!empty($_POST["url"]))
+    if(!empty($_POST["url"]) && !empty($_POST["option"]))
     {
       $file = "resultado.txt";
       $url = $_POST["url"];
-      echo getDirectories($url);
+      $opcion = $_POST["option"];
+      if($opcion == "fuerzaBruta")
+      {
+          doBruteForceDir($url);
+      }
+      else
+      {
+          echo getDirectories($url);
+      }
      }
    }
  ?>
