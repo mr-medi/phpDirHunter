@@ -1,29 +1,50 @@
 <?php
-    function getDirectories($url)
+    function getDirectories($url,$numeroPeticiones)
     {
-      $resultado = "";
+      $contador = 0;
+      $context = stream_context_create(
+        array
+        (
+        'http' => array(
+          'method' => 'GET',
+          'timeout' => 5.0,
+          'user_agent' => '<script>alert(0)</script>',
+          'follow_location' => 0,
+          'max_redirects' => '0',
+          'protocol_version' => 1.1,
+        'header'           => [
+            'Connection: close'
+            ]
+        )
+      ));      
+      $datos = array();
+      $founds = array();
+      $notFounds = array();
       $lista = file_get_contents("lista.txt");
       $directorios = explode("\n", $lista);
-      foreach ($directorios as $directorio)
+      while($contador <= $numeroPeticiones)
       {
-        $recurso = $url.$directorio;
-        $resultado .= "<h3>TRYING => $recurso ...</h3><br>";
-
-        if(fopen($recurso, "r"))
-        {
-          $resultado .= "<strong style='color:green'>[ * ]</strong>Encontrado directorio en <strong style='color:green'>$recurso</strong><br>";
-          //file_put_contents($file, file_get_contents($file).$url.";");
-        }
-        else
-        {
-          $resultado .= "<strong style='color:red'>[ ! ]</strong>Nada encontrado<br>";
-        }
+          $recurso = $url.$directorios[$contador];
+          if(fopen($recurso, "r" , false , $context))
+          {
+            $founds[] = $recurso;
+            fclose($recurso);
+          }
+          else
+          {
+            $notFounds[] = $recurso;
+          }
+          $contador++;
       }
-      return $resultado;
+      echo "$contador<br>";
+      $datos = array("found" => $founds , "notFound" => $notFounds);
+      return $datos;
     }
 
     function isDirOnDomain($url , $dir)
     {
+      set_time_limit(1);
+      ignore_user_abort(true);
       return fopen($url.$dir);
     }
 
@@ -36,7 +57,7 @@
            $words[] = $word;
            if($depth != 0)
            {
-             //$start = 0;
+             $start = 0;
              recurse($letters, $words, $start++, $end, $depth, $word);
            }
        }
@@ -78,7 +99,7 @@
 
     function doBruteForceDir($url)
     {
-      $directorios = getStrings(range("a" , "z") , 6);
+      $directorios = getStrings(range("a" , "c") , 5);
       foreach ($directorios as $directorio)
       {
         echo "<strong>TRYING =>". $url.$directorio."</strong><br>";
