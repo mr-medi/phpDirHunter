@@ -1,5 +1,5 @@
 <?php
-    require_once "funciones.php";
+   require_once "funciones.php";
  ?>
  <!DOCTYPE html>
  <html>
@@ -23,32 +23,36 @@
            }
            else
            {
-               // Starting clock time in seconds
-               $start_time = microtime(true);
-               $directorios = getDirectories($url,399);
-               // End clock time in seconds
+             if($url[strlen($url)] != "/")
+             {
+               $url .= "/";
+             }
+             $urls = array();
+             $lista = file_get_contents("lista.txt");
+             $directorios = explode("\n", $lista);
+             foreach ($directorios as $directorio)
+             {
+               $urls[] = $url.$directorio;
+             }
+             echo "<h1>Total directorios probados => ".count($urls)."</h1><br>";
+             $xD2 = 0;
+             $vacio = array();
+             $start_time = microtime(true);
+
+             if(rollingCurl($urls,1,null,$xD2,$vacio))
+             {
                $end_time = microtime(true);
-               // Calculate script execution time
                $execution_time = ($end_time - $start_time);
                echo "<h2>Resultados obtenidos en ".$execution_time." segundos...</h2><br>";
-               //MOSTRANDO DIRECTORIOS ENCONTRADOS
-               echo "<h1>Mostrando ".count($directorios["found"])." directorios encontrados</h1><br>";
-               foreach ($directorios["found"] as $directorio)
+               echo "<h1>Encontrados ".count($vacio)." resultados....</h1><br>";
+               foreach ($vacio as $valor)
                {
-                  echo "<strong style='color:green;'>[ * ] </strong>
-                  Directorio encontrado en <strong style='color:green;'>
-                  <a href='$directorio'>$directorio</a></strong>";
-                  echo "<br>";
+                 echo "<strong style='color:green;'>[ * ] </strong>
+                 Directorio encontrado en <strong style='color:green;'>
+                 <a href='$valor'>$valor</a></strong>";
+                 echo "<br>";
                }
-               //MOSTRANDO DIRECTORIOS NO ENCONTRADOS
-               echo "<h1>Mostrando ".count($directorios["notFound"])." directorios NO encontrados</h1><br>";
-               foreach ($directorios["notFound"] as $directorio)
-               {
-                  echo "<strong style='color:red;'>[ ! ] </strong>
-                  Directorio NO encontrado en <strong style='color:red;'>
-                  <a href='$directorio'>$directorio</a></strong>";
-                  echo "<br>";
-               }
+             }
            }
           }
         }

@@ -1,22 +1,71 @@
 <?php
+      function rollingCurl($urls, $callback, $custom_options = null, $XD=0, &$DIRECTORIOS)
+      {
+        $resultado = array();
+        $rolling_window = 100;
+        $rolling_window = (count($urls) < $rolling_window) ? count($urls) : $rolling_window;
+        $master = curl_multi_init();
+        $curl_arr = array();
+        $std_options = array(CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_MAXREDIRS => 5);
+        $options = ($custom_options) ? ($std_options + $custom_options) : $std_options;
+        for ($i = 0; $i < $rolling_window; $i++)
+        {
+          $ch = curl_init();
+          $options[CURLOPT_URL] = $urls[$i];
+          curl_setopt_array($ch,$options);
+          curl_multi_add_handle($master, $ch);
+        }
+        do
+        {
+          while(($execrun = curl_multi_exec($master, $running)) == CURLM_CALL_MULTI_PERFORM);
+          if($execrun != CURLM_OK)
+              break;
+          while($done = curl_multi_info_read($master))
+          {
+              $info = curl_getinfo($done['handle']);
+              //echo $info['url']."<br>";
+              if ($info['http_code'] == 200)
+              {
+                  $DIRECTORIOS[$XD] = $info['url'];
+                  ++$XD;
+              }
+              $output = curl_multi_getcontent($done['handle']);
+              //$callback($output);
+              $ch = curl_init();
+              curl_setopt_array($ch,$options);
+              curl_multi_add_handle($master, $ch);
+              curl_multi_remove_handle($master, $done['handle']);
+              $options[CURLOPT_URL] = $urls[$i++];
+          }
+        } while ($running);
+        curl_multi_close($master);
+        return true;
+      }
+
+
     function getDirectories($url,$numeroPeticiones)
     {
       $contador = 0;
       $context = stream_context_create(
         array
         (
-        'http' => array(
-          'method' => 'GET',
-          'timeout' => 5.0,
-          'user_agent' => '<script>alert(0)</script>',
-          'follow_location' => 0,
-          'max_redirects' => '0',
-          'protocol_version' => 1.1,
-        'header'           => [
-            'Connection: close'
-            ]
-        )
-      ));      
+        'http' =>
+                array
+                (
+                  'method' => 'GET',
+                  'timeout' => 5.0,
+                  'user_agent' => '<script>alert(0)</script>',
+                  'follow_location' => 0,
+                  'max_redirects' => '0',
+                  'protocol_version' => 1.1,
+                  'header'   =>
+                    [
+                      'Connection: close'
+                    ]
+                )
+      ));
       $datos = array();
       $founds = array();
       $notFounds = array();
@@ -36,15 +85,12 @@
           }
           $contador++;
       }
-      echo "$contador<br>";
       $datos = array("found" => $founds , "notFound" => $notFounds);
       return $datos;
     }
 
     function isDirOnDomain($url , $dir)
     {
-      set_time_limit(1);
-      ignore_user_abort(true);
       return fopen($url.$dir);
     }
 
@@ -71,7 +117,6 @@
           $temp = "";
           $arrayDomains = [];
           $x = 0;
-
           for($i = 0; $i < $domains->nod; ++$i)
           {
             $temp = "domain";
@@ -86,7 +131,6 @@
            $temp +=$i; ++$i;
            $arr[i] = $domains->$temp;
          }
-
           return $arrayDomains;
       }
 
