@@ -1,5 +1,6 @@
 "use strict";
-var _enviar = document.getElementById("enviar"); _enviar.addEventListener("click", function(){EnviarUrl();});
+var _enviar = document.getElementById("enviar");
+_enviar.addEventListener("click", function(){EnviarUrl();});
 
 function parsear(str)
 {
@@ -32,29 +33,56 @@ function getValues()
 
 function getValues2()
 {
-    var domains = document.getElementsByName("domains");
+    let domains = document.getElementsByName("domains");
     var dictionaries = document.getElementsByName("dictionaries");
+    var options = document.getElementsByName("opciones");
     var domiDict = new Object();
     var propiedad = "";
-    domiDict.nod = domains.length;
-    domiDict.nd = dictionaries.length;
-    //alert(domains.length);
-    for(var i in domains)
+
+    if(options.length > 0)
     {
-          if(domains[i].value != "")
-          {
-              propiedad = "domain" + i;
-              domiDict[propiedad] = domains[i].value;
-          }
-          //alert(domains[i].value);
+        let contador = 0;
+        for(let i in options)
+        {
+            if(options[i].checked)
+            {
+                propiedad = "opcion" + contador;
+                domiDict[propiedad] = options[i].value;
+                contador++;
+            }
+        }
+        domiDict.opciones = contador;
     }
 
-    for(var i in dictionaries)
+    if(domains.length > 0)
     {
-       propiedad = "dictionary" + i;
-       domiDict[propiedad] = dictionaries[i];
+        let numberOfDomains = 0;
+        for(let i in domains)
+        {
+              if(domains[i].textLength > 0)
+              {
+                  propiedad = "domain" + i;
+                  domiDict[propiedad] = domains[i].value;
+                  numberOfDomains++;
+              }
+        }
+        domiDict.nod = numberOfDomains;
     }
 
+    if(dictionaries.length > 0)
+    {
+        let numberOfDics = 0;
+        for(let i in dictionaries)
+        {
+           if(dictionaries[i].value != "")
+           {
+               propiedad = "dictionary" + i;
+               domiDict[propiedad] = dictionaries[i];
+               alert("hola");
+           }
+        }
+        domiDict.nd = numberOfDics;
+    }
     return JSON.stringify(domiDict);
 }
 
@@ -64,9 +92,7 @@ function EnviarUrl()
     var envio = getValues2();
     var urlPOST = "main.php";
     urlPOST += (urlPOST.match(/\?/) == null ? "?" : "&") + (new Date()).getTime();
-
     var xhr = new XMLHttpRequest();
-
        xhr.onreadystatechange = function()
        {
            //alert("Cargando");
@@ -85,9 +111,6 @@ function EnviarUrl()
             alert("Respuesta 500" + xhr.responseText);
          }
       }
-
-
-
         xhr.open("POST",urlPOST, true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send(envio);

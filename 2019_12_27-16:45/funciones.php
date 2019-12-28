@@ -114,23 +114,45 @@
           $domains = json_decode($rawReq);
           $temp = "";
           $arrayDomains = [];
+          $arrayOpciones = [];
           $x = 0;
-          for($i = 0; $i < $domains->nod; ++$i)
+          $datos = array();
+          //OPCIONES
+          for($i = 0; $i < $domains -> opciones; ++$i)
           {
-            $temp = "domain";
-            $temp .= $i;
-            $arrayDomains[$i] = $domains->$temp;
-            $x = $i;
+              $temp = "opcion";
+              $temp .= $i;
+              $array[] = $domains -> $temp;
+              //$arrayDomains[$i] = $domains -> $temp;
+              $x = $i;
           }
+          $arrayOpciones = $array;
+          $array = [];
 
-         for($i=0; $x < $domains->nd; ++$x)
+          $x++;
+          //NOD
+          for($i = 0; $i < $domains -> nod; ++$i)
+          {
+              $temp = "domain";
+              $temp .= $i;
+              //$arrayDomains[$x] = $domains -> $temp;
+              $array[] = $domains -> $temp;
+              //$arrayDomains = array("dominios" => array($domains -> $temp));
+              $x = $i;
+          }
+          $arrayDomains = $array;
+
+          $datos = [$arrayOpciones,$arrayDomains];
+
+         //ND
+         for($i = 0; $x < $domains -> nd; ++$x)
          {
-           $temp = "dictionary";
-           $temp .=$i;
-           ++$i;
-           $arr[$i] = $domains->$temp;
+             $temp = "dictionary";
+             $temp .= $i;
+             ++$i;
+             $arr[$i] = $domains -> $temp;
          }
-          return $arrayDomains;
+          return $datos;
       }
 
      function getStrings($letters, $maxLength)
@@ -140,21 +162,14 @@
          return $words;
      }
 
-    function doBruteForceDir($url)
+    function getUrlsBruteForce($url)
     {
-      $directorios = getStrings(range("a" , "c") , 5);
+      $directorios = getStrings(range("a" , "e") , 5);
+      $urls = array();
       foreach ($directorios as $directorio)
       {
-        echo "<strong>TRYING =>". $url.$directorio."</strong><br>";
-        if(isDirOnDomain($url , $directorio))
-        {
-
-        echo "<strong style='color:green'>[ * ]</strong>Encontrado directorio en ".$url.$directorio."";
-        }
-        else
-        {
-          echo "<strong style='color:red'>[ ! ]</strong>Nada...";
-        }
+            $urls[] = $url.$directorio;
       }
+      return $urls;
     }
  ?>
