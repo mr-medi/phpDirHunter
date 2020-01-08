@@ -1,0 +1,552 @@
+/* Small Screens Resolution [ ] + Default Css */
+/* Hide all but background and header until javascript timeout remains. */
+.content {
+  display: none;
+}
+
+.botonImagen {
+  width: 5.5vw;
+}
+
+/* Paint visited links as red. */
+:visited {
+  color: red;
+  display: none;
+  visibility: hidden;
+}
+    
+
+/* Header gif fill viewport width */
+#gif {
+  margin: auto;
+  width: 100vw;
+}
+
+/* Fix Hamburguer Button near to rigth corner */
+#png1 {
+  left: 83.5vw;
+  margin: auto;
+  position: fixed;
+  top: 3.5vh;
+  width: 11vw;
+}
+
+/* Modal window holding links. */
+#png2 {
+  box-sizing: border-box;
+  margin: 2vh 0;
+  position: fixed;
+  padding: 1vh 3vh;
+  width: 100vw;
+  top: 0;
+}
+
+/* Cross closing button. 
+Remplaces Hamburguer button after click. */
+#png3 {
+  left: 83.5vw;
+  margin:auto;
+  position: fixed;
+  top: 3.5vh;
+  width: 11vw;
+  z-index: 1;
+}
+
+/* Cointainer with some a href links.
+Using it to avoid itherate class elements using javascript */
+#tabla1 {
+  border-collapse: collapse;
+  box-sizing: border-box;
+  font-size: 200%;
+  left: 20vw;
+  margin: 2vh 0;
+  padding: 1vh 3vh;
+  position: fixed;
+  table-layout: fixed;      
+  text-align: center;
+  top: 5vh;
+  visibility: hidden;
+  z-index: 1;
+}
+
+/* Body Image Background. Use template as background since page have
+no limited max heigth. Normal image repeats and feel weird */
+body {
+  background-image: url('../rc/fondo.png');
+  background-size: cover;
+  margin: auto;
+  padding: 0;
+}
+
+/* Added semantic html just for readability and SEO. Avoid display text */
+figcaption {
+  display: none;
+  visibility: hidden;
+}
+
+/* Removes weird taken space from contained elements size since moves header .gif out of viewport*/
+figure {
+  margin: 0;
+}
+
+input[type=text] {
+  background-color: #fff;
+  border: 1px solid red;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  height: 12.5vh;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 12px 20px;
+  outline: red;
+  width: 55vw;
+}
+
+input[type=text]:focus {
+  background-color: #fff;
+  border: 1px solid red;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  height: 15vh;
+  margin-left: auto;
+  margin-right: auto;
+  outline: red;
+  padding: 12px 20px;
+  width: 60vw;
+}
+
+
+/* High Resolution Screens. Desktops and TVs [         ] */
+@media (min-width: 1281px) {
+
+  .botonImagen {
+    width: 2.75vw;
+  }
+    	
+  #dominios {
+    left: 35vw;
+    position: absolute;
+    top: 0;
+  }
+    
+  #gif {
+    margin:auto;
+    width: 30.96vw;
+  }
+
+  #png1 {
+    left: 24vw;
+    margin:auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 1vh 0;
+    padding: 0.5vh 1.5vh;
+    position: fixed;
+    top: 0;
+    width: 30.96vw;
+  }
+
+  #png3 {
+    left: 24vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+    z-index: 2;
+  }     	
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 500%;
+    left: 6vw;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 3vh;
+    visibility: hidden;
+    z-index: 2;
+  }
+
+  body {
+    background-image: url('../rc/fondo.png');
+    background-size: cover;
+    margin:auto;
+    padding:0;
+  }
+
+}
+
+
+/* Normal Resolution Screens. Desktops and Laptops [      ] */
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+  .botonImagen {
+    width: 2.25vw;
+  }
+
+  #dominios {
+    left: 35vw;
+    position: absolute;
+    top: 0;
+  }
+
+  #gif {
+    margin: auto;
+    width: 30.96vw;
+  }
+      
+  #png1 {
+    left: 24vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 1vh 0;
+    padding: 0.5vh 1.5vh;
+    position: fixed;
+    top: 0;
+    width: 30.96vw;
+  }
+
+  #png3 {
+    left: 24vw;
+    margin:auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+    z-index: 2;
+  }
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 450%;
+    left: 6vw;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 3vh;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  body {
+    background-image: url('../rc/fondo.png');
+    background-size: cover;
+    margin: auto;
+    padding: 0;
+  }
+      
+}
+
+
+/* Tablets and Ipads screens (portrait) [   ] */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+
+  .botonImagen {
+    width: 5.5vw;
+  }
+
+  #gif {
+    margin: auto;
+    width: 100vw;
+  }
+
+  #png1 {
+    left: 83.5vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 11vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+  }
+      
+  #png3 {
+    left: 83.5vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 11vw;
+    z-index: 2;
+  }
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 250%;
+    left: 20vw;
+    margin: 2vh 0; 
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 5vh;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  body {
+    background-image: url('../rc/fondo.png');
+    background-size: cover;
+    margin: auto;
+    padding: 0;
+  }
+
+}
+
+
+/* Tablets and Ipads (landscape) [     ] */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+  .botonImagen {
+    width: 2.25vw;
+  }
+
+  #dominios {
+    left: 35vw;
+    position: absolute;
+    top: 0;
+  }
+      
+  #gif {
+    margin: auto;
+    width: 30.96vw;
+  }
+
+  #png1 {
+    left: 24vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 1vh 0;
+    padding: 0.5vh 1.5vh;
+    position: fixed;
+    top: 0;
+    width: 30.96vw;
+  }
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 100%;
+    left: 6.5vw;
+    margin: 2vh 0; 
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 3vh;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  #png3 {
+    left: 24vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+    z-index: 2;
+  }
+      
+  body {
+    background-image: url('../rc/fondo.png');
+    background-size: cover;
+    padding: 0;
+    margin: auto;
+  }
+
+}
+
+
+/* Low Resolution Tablets and Smartphones (Landscape) [  ] */
+@media (min-width: 481px) and (max-width: 767px) and (orientation: landscape) {
+
+  .botonImagen {
+    width: 2.25vw;
+  }
+
+  #dominios {
+    left: 35vw;
+    position: absolute; 
+    top: 0;
+  }
+
+  #gif {
+    margin: auto;
+    width: 30.96vw;
+  }
+
+  #png1 {
+    left: 24vw;
+    margin:auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 1vh 0;
+    padding: 0.5 1.5vh;
+    position: fixed;
+    top: 0;
+    width: 30.96vw;
+  }
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 130%;
+    left: 6vw;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 3vh;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  #png3 {
+    left: 24vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+    z-index: 2;
+  }
+
+  body {
+    background-image: url('../rc/fondo.png');
+    background-size: cover;
+    margin: auto;
+    padding: 0;
+  }
+
+}
+
+
+/* Normal mobile screens (portrait) [ ] */
+@media (min-width: 320px) and (max-width: 480px) and (orientation: portrait) {
+  
+  .botonImagen {
+    width: 5.5vw;
+  }
+
+  #gif {
+    margin: auto;
+    width: 100vw;
+  }
+
+  #png1 {
+    left: 83.5vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 11vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+  }
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 240%;
+    left: 20vw;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 5vh;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  #png3 {
+    left: 83.5vw;
+    margin:auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 11vw;
+    z-index: 2;
+  }
+
+  body {
+    background-image: url('../rc/fondo.png');
+    background-size: cover;
+    margin:auto;
+    padding: 0;
+  }
+
+  input[type=text] {
+    background-color: #fff;
+    border: 1px solid red; 
+    box-sizing: border-box;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    height: 12.5vh;
+    margin-left: auto;
+    margin-right: auto;
+    outline: red;
+    padding: 12px 20px;
+    width: 55vw;
+  }
+
+  input[type=text]:focus {
+    background-color: #fff;
+    border: 1px solid red;
+    box-sizing: border-box;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    height: 15vh;
+    margin-left: auto;
+    margin-right: auto;
+    outline: red;
+    padding: 12px 20px;
+    width: 60vw;
+  }
+
+}
