@@ -1,5 +1,10 @@
 <?php
-   require_once "funciones.php";
+require_once dirname(__DIR__).'/DHunterPOO/clases/Bruter.class.php';
+require_once dirname(__DIR__).'/DHunterPOO/clases/BruterDirectory.class.php';
+//require_once dirname(__DIR__).'/DHunterPOO/clases/Directory.class.php';
+require_once dirname(__DIR__).'/DHunterPOO/clases/File.class.php';
+require_once dirname(__DIR__).'/DHunterPOO/clases/Request.class.php';
+require_once dirname(__DIR__).'/DHunterPOO/clases/Functions.class.php';
  ?>
  <!DOCTYPE html>
  <html>
@@ -10,82 +15,46 @@
    </head>
    <body>
      <?php
-        $file = "resultado.txt";
-        $dictionariesToHunt = [];
-        $datos = GRFC($dictionariesToHunt);
-        $i = 0;
+        $list = file_get_contents('lista.txt');
+        $directorios = explode("\n", $list);
+        $rawReq = file_get_contents('php://input');
+        $datos = Request::getRequest($rawReq);
         $opciones = $datos[0];
-        $dominios = $datos[1];
-        //COMPROBANDO QUE LAS URL ACABEN EN '/'
-        foreach ($dominios as $domain)
+        $domains = $datos[1];
+        $i = 0;
+        foreach($domains as $domain)
         {
-            if($domain[strlen($domain)-1] != "/")
-            {
-                $dominios[$i] = $domain."/";
-            }
+            if(!Functions::isWellTypedDomain($domain))
+                $domains[$i] = $domain."/";
             $i++;
         }
-
-        foreach ($opciones as $opcion)
+        $urls = [];
+        foreach ($domains as $domain)
         {
-            if($opcion == "fuerzaBruta")
+            foreach($directorios as $dir)
             {
-                echo "<strong style='color:green;'>[ * ]Starting  Brute Force </strong><br>";
-                $dirs = getUrlsBruteForce($dominios[0]);
-                $vacio = [];
-                $xD2 = 0;
-                $start_time = microtime(true);
-                if(rollingCurl($dirs,1,null,$xD2,$vacio))
-                {
-                    $end_time = microtime(true);
-                    $execution_time = ($end_time - $start_time);
-                    echo "<h3>Resultados para : <strong>$dominios[0]</strong></h3><br>";
-                    echo "<p>Total directorios probados  : <strong>". count($dirs) ."</strong> </p>";
-                    echo "<p>Resultados obtenidos en <strong>".$execution_time."</strong> segundos...</p>";
-                    echo "<p>Encontrados <strong>". count($vacio) ."</strong> resultados....</p>";
-                    foreach ($vacio as $valor)
-                    {
-                        echo "<strong style='color:green;'>[ * ] </strong>
-                        Directorio encontrado en <strong style='color:green;'>$valor</strong><br>";
-                    }
-                }
+                $urls[] = $domain.$dir;
+            }
+        }
+        foreach($opciones as $opcion)
+        {
+            $bruterDir = new BruterDirectory($domains[0] , $urls);
+            $dirs = array();
+            if($opcion == "FuerzaBruta")
+            {
+                echo "<strong style='color:green;'>Starting  Brute Force </strong><br>";
+                $dirs = $bruterDir -> doBruterDir();
             }
             elseif($opcion == "dic")
             {
-                echo "<strong style='color:green;'>[ * ]Starting searching by Dictionary file </strong><br>";
-                $list = file_get_contents('lista.txt');
-                $directorios = explode("\n", $list);
-                //POR CADA URL COMPROBAMOS LOS DIRECTORIOS
-                foreach ($dominios as $dominio)
-                 {
-                      $vacio = [];
-                      $xD2 = 0;
-                      $start_time = microtime(true);
-                      $urls = [];
-                      foreach ($directorios as $directorio)
-                      {
-                           $urls[] = $dominio.$directorio;
-                      }
-                      if(rollingCurl($urls,1,null,$xD2,$vacio))
-                      {
-                            $end_time = microtime(true);
-                            $execution_time = ($end_time - $start_time);
-                            echo "<h3>Resultados para : <strong>$dominio</strong></h3><br>";
-                            echo "<p>Total directorios probados  : <strong>". count($urls) ." </strong></p>";
-                            echo "<p>Resultados obtenidos en <strong>".$execution_time."</strong> segundos...</p>";
-                            echo "<p>Encontrados <strong>". count($vacio) ."</strong> resultados....</p>";
-                            foreach ($vacio as $valor)
-                            {
-                                  echo "<strong style='color:green;'>[ * ] </strong>
-                                  Directorio encontrado en <strong style='color:green;'>$valor</strong><br>";
-                            }
-                    }
-                 }
+                echo "<strong style='color:green;'><h1>Seeking dirs </strong></h1><br>";
+                $dirs = $bruterDir -> doSearch();
             }
-        }
-        if(count($opciones) == 0)
-        {
-            echo "<strong style='color:red;'>[ ! ]Especifique una opcion!.... </strong><br>";
+            //SHOWING RESULTS
+            foreach($dirs as $dir)
+            {
+                echo "<strong style='color:green;'>[ * ]Directory found in </strong><a href='$dir'>$dir</a><br>";
+            }
         }
       ?>
    </body>

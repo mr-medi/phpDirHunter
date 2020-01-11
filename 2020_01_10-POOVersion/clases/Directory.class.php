@@ -15,7 +15,7 @@
             return $this -> directory;
         }
 
-        public function addFile(File $file)
+        public function addFile($file)
         {
             $this -> files[] = $file;
         }
