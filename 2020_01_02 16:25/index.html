@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<meta charset="utf-8" />
+<html>
+<head>
+<title>DHUNTER</title>
+<script>
+"use strict";
+function crearElemento(etiqueta, IDpadre, tipo, valor, id, nombre, fuente, clase, pista, enClick, dentro, url1, retorno)
+{
+
+if(!etiqueta)
+throw new SyntaxError("El parámetro etiqueta está sin definir."); 
+
+if(!IDpadre)
+throw new SyntaxError("El parámetro padre está sin definir."); 
+
+var elemento = "";
+var elemento = document.createElement(etiqueta); elemento.type = tipo;
+elemento.value = valor;
+elemento.id = id;
+elemento.name = nombre;
+elemento.src = fuente;
+elemento.class = clase;
+elemento.placeholder = pista;
+elemento.onclick = enClick;
+elemento.innerHTML = dentro;
+elemento.href = url1;
+
+document.getElementById(IDpadre).appendChild(elemento);
+
+   if(retorno === true)
+   {
+   return elemento;
+   }
+
+}
+
+function añadirEtiqueta(IDpadre, etiqueta)
+{
+etiqueta = document.createElement(etiqueta); document.getElementById(IDpadre).appendChild(etiqueta);
+}
+
+function añadirTexto(IDpadre, texto)
+{
+var tn=document.createTextNode(texto); document.getElementById(IDpadre).appendChild(tn);
+}
+
+function actualizarViewport()
+{
+document.getElementsByTagName('meta')['viewport'].content='user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi';
+}
+
+function mostrarWeb()
+{
+document.getElementById("nav").style.display="block";
+}
+
+/* Constantes */
+var body="body", input="input", text="text", no="", button="button", si = true, a="a", href="href", div="div", img="img", p="p", css="css", table="table", td="td", tr="tr", th="th";
+</script>
+
+<script>
+"use strict";
+function CrearWeb()
+{
+
+
+/*etiqueta, IDpadre, tipo, valor, id, nombre, fuente, clase, pista, enClick, dentro, url1, retorno*/
+
+var IMG1 = crearElemento(img, body, no, no, "gif", no, "dhunter.gif" , no, no, no, no, no, si);
+IMG1.style.width="100%";
+
+var nav = "nav";
+var NAV = crearElemento(div, body, no, no, nav, no, no, no, no, no, no, no, si);
+document.getElementById(nav).style.display="none";
+
+var IMG2 = crearElemento(img, nav, no, no, "png1", no, "dhamburgesa.png" , no, no, no, no, no, si);
+IMG2.style.width="20%";
+
+
+añadirEtiqueta(nav, div);
+
+
+var colL = "#FE364F77";
+
+crearElemento(div, nav, no, no, "tabla"+1, no, no, no, no, no, no, no, no);
+crearElemento(div, "tabla1", no, no, no, no, no, no, no, no, no, no, no);
+crearElemento(div, "tabla1", no, no, "t1f1", no, no, no, no, no, no, no, no);
+crearElemento(div, "tabla1", no, no, "t1f2", no, no, no, no, no, no, no, no);
+crearElemento(div, "tabla1", no, no, "t1f3", no, no, no, no, no, no, no, no);
+crearElemento(div, "tabla1", no, no, "t1f4", no, no, no, no, no, no, no, no);
+
+
+
+
+/*etiqueta, IDpadre, tipo, valor, id, nombre, fuente, clase, pista, enClick, dentro, url1, retorno*/
+
+
+var HOME = crearElemento(a, "t1f1", href, no, "link"+1, "link"+1, no, no, no, no, "Home", "#HOME", si).style.color=colL;
+
+var GITHUB = crearElemento(a, "t1f2", href, no, "link"+2, "link"+2, no, no, no, no, "Github", "#GITHUB", si).style.color=colL;
+ 
+var DOWNLOAD = crearElemento(a, "t1f3", href, no, "link"+3, "link"+3, no, no, no, no, "Download", "#DOWNLOAD", si).style.color=colL;
+
+var BUGS = crearElemento(a, "t1f4", href, no, "link"+4, "link"+4, no, no, no, no, "Bugs", "#BUGS", si).style.color=colL;
+
+añadirEtiqueta(body, p);
+añadirEtiqueta(body, p);
+
+añadirTexto(nav, "Dominios:");
+
+añadirEtiqueta(nav, div);
+
+var i = 1;
+var ejemplo="https://example.com/";
+
+var dominio1 = crearElemento(input, nav, text, no, "dominio"+i, "dominio"+i, no, no, ejemplo, no, no, no, si);
+
+var botonAgregarDominio1 = crearElemento(button, nav, button, no, "botonAgregarDominio"+i, "botonAgregarDominio"+i, no, no, no, no, "+", no, si);
+
+añadirEtiqueta(nav, div);
+
+var Diccionario1 = crearElemento(input, nav, text, no, "diccionario"+i, "diccionario"+i, no, no,  ejemplo+"lista.txt", no, no, no, si);
+
+var botonAgregarDiccionario1 = crearElemento(button, nav, button, no, "botonAgregarDiccionario"+i, "botonAgregarDiccionario"+i, no, no, no, no, "+", no, si);
+
+
+botonAgregarDiccionario1.addEventListener("click", function(){añadirCampos(i)});
+
+botonAgregarDominio1.addEventListener("click", function(){añadirCampos(i)});
+/* Falta funcionalidad boton"+" añadir más campos auto */
+
+function añadirCampos()
+{
+++i;
+añadirEtiqueta(nav, div);
+crearElemento(input, nav, text, no, "dominio"+i, "dominio"+i, no, no, ejemplo, no, no, no, si);
+crearElemento(button, nav, button, no, "botonAgregarDominio"+i, "botonAgregarDominio"+i, no, no, no, no, "+", no, si).addEventListener("click", function(){añadirCampos(i);});
+añadirEtiqueta(nav, div);
+crearElemento(input, nav, text, no, "diccionario"+1, "diccionario"+1,  no, no,  ejemplo+"lista.txt", no, no, no, si);
+crearElemento(button, nav, button, no, "botonAgregarDiccionario"+i, "botonAgregarDiccionario"+i, no, no, no, no, "+", no, si).addEventListener("click", function(){añadirCampos(i);});
+}
+
+/* CSS */
+
+var divCSS = crearElemento(div, body, no, no, "css", no, no, no, no, no, no, no, si);
+var CSS = crearElemento("style", body, no, no, "cssStyle" , no, no, no, no, no, no, no, si);
+
+añadirTexto("cssStyle", ":visited { color: red; }");
+añadirTexto("cssStyle", "body{background-image: url('fondo.png');background-size: cover;height: 100vh;padding:0;margin:0;}");
+añadirTexto("cssStyle", "#tabla1{ width: 100%; display: table; table-layout: fixed; border-collapse: collapse; text-align-center; }");
+añadirTexto("cssStyle", "#png1 { position: fixed; top: 8px; right: 4px; }");
+
+
+actualizarViewport();
+setTimeout(function(){mostrarWeb()}, 3150);
+}
+
+</script>
+</head>
+<body id="body" onload="CrearWeb();">
+
+
+</body>
+</html>

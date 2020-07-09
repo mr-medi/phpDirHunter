@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- 
+    #RECORDAR USAR HTTPS EN SUBIDA (RUTAS)
+    #ELIMINAR Y BLOQUEAR INLINE.
+    #ANHADIR CSP
+    #Fondos adaptados a cada resolucion !ANDROID! y mejores fondos sin copyrigth.
+    #Anhadir boton enviar.
+    #Sobran botones.
+  -->
+  <!-- DHunter Copyrigth 2020 -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="abstract" content="Dhunter is a piece of software made by StringManolo && MrMedi. This is the web interface made to send requests to the back-end PHP software">
+    <meta name="author" content="StringManolo && MrMedi">
+    <meta name="classification" content="Dhunter is a piece of software made by StringManolo && MrMedi. This is the web interface made to send requests to the back-end PHP software">
+    <meta name="copyright" content="Copyright 2020">
+    <meta name="country" content="Spain">
+    <meta name="description" content="DHunter front-end application. Find directories or files using a wordlist.">
+    <meta name="designer" content="StringManolo">
+    <meta name="distribution" content="global">
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="handheldfriendly" content="true">
+    <meta name="keywords" content="Software Folders,Find Directories,Server Directory Buster Online,DHunter,Find Files Server">
+    <meta name="publisher" content="StringManolo && MrMedi">    
+    <meta name="rating" content="safe for kids">
+    <meta name="subject" content="Software Interfaz">
+    <meta name="title" content="DHunter - FrontEnd">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, heigth=device-heigth, target-densitydpi=device-dpi">
+    <meta name="web_author" content="StringManolo">    
+    <title>DHUNTER</title>
+    <!-- CSS -->
+    <style>
+/* Small Screens Resolution [ ] + Default Css */
+/* Hide all but background and header until javascript timeout remains. */
+.content {
+  display: none;
+}
+    
+/* Paint visited links as red. */
+:visited {
+  color: red;
+  display: none;
+  visibility: hidden;
+}
+    
+/* Header gif fill viewport width */
+#gif {
+  margin: auto;
+  width: 100vw;
+}
+
+/* Fix Hamburguer Button near to rigth corner */
+#png1 {
+  left: 83.5vw;
+  margin: auto;
+  position: fixed;
+  top: 3.5vh;
+  width: 11vw;
+}
+
+/* Modal window holding links. */
+#png2 {
+  box-sizing: border-box;
+  margin: 2vh 0;
+  position: fixed;
+  padding: 1vh 3vh;
+  width: 100vw;
+  top: 0;
+}
+
+/* Cross closing button. 
+Remplaces Hamburguer button after click. */
+#png3 {
+  left: 83.5vw;
+  margin:auto;
+  position: fixed;
+  top: 3.5vh;
+  width: 11vw;
+  z-index: 1;
+}
+
+/* Cointainer with some a href links.
+Using it to avoid itherate class elements using javascript */
+#tabla1 {
+  border-collapse: collapse;
+  box-sizing: border-box;
+  font-size: 200%;
+  left: 20vw;
+  margin: 2vh 0;
+  padding: 1vh 3vh;
+  position: fixed;
+  table-layout: fixed;      
+  text-align: center;
+  top: 5vh;
+  visibility: hidden;
+  z-index: 1;
+}
+
+/* Body Image Background. Use template as background since page have
+no limited max heigth. Normal image repeats and feel weird */
+body {
+  background-image: url('fondo.png');
+  background-size: cover;
+  margin: auto;
+  padding: 0;
+}
+
+/* Added semantic html just for readability and SEO. Avoid display text */
+figcaption {
+  display: none;
+  visibility: hidden;
+}
+
+/* Removes weird taken space from contained elements size since moves header .gif out of viewport*/
+figure {
+  margin: 0;
+}
+
+input[type=text] {
+  background-color: #fff;
+  border: 1px solid red;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: block;
+  height: 12.5vh;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 12px 20px;
+  outline: red;
+  width: 55vw;
+}
+
+input[type=text]:focus {
+  background-color: #fff;
+  border: 1px solid red;
+  box-sizing: border-box;
+  color: black;
+  cursor: pointer;
+  display: block;
+  height: 15vh;
+  margin-left: auto;
+  margin-right: auto;
+  outline: red;
+  padding: 12px 20px;
+  width: 85vw;
+}
+
+
+/* High Resolution Screens. Desktops and TVs [         ] */
+@media (min-width: 1281px) {
+    	
+  #dominios {
+    left: 35vw;
+    position: absolute;
+    top: 0;
+  }
+    
+  #gif {
+    margin:auto;
+    width: 30.96vw;
+  }
+
+  #png1 {
+    left: 24vw;
+    margin:auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 1vh 0;
+    padding: 0.5vh 1.5vh;
+    position: fixed;
+    top: 0;
+    width: 30.96vw;
+  }
+
+  #png3 {
+    left: 24vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+    z-index: 2;
+  }     	
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 500%;
+    left: 6vw;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 3vh;
+    visibility: hidden;
+    z-index: 2;
+  }
+
+  body {
+    background-image: url('fondo.png');
+    background-size: cover;
+    margin:auto;
+    padding:0;
+  }
+
+}
+
+
+/* Normal Resolution Screens. Desktops and Laptops [      ] */
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+  #dominios {
+    left: 35vw;
+    position: absolute;
+    top: 0;
+  }
+
+  #gif {
+    margin: auto;
+    width: 30.96vw;
+  }
+      
+  #png1 {
+    left: 24vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 1vh 0;
+    padding: 0.5vh 1.5vh;
+    position: fixed;
+    top: 0;
+    width: 30.96vw;
+  }
+
+  #png3 {
+    left: 24vw;
+    margin:auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+    z-index: 2;
+  }
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 450%;
+    left: 6vw;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 3vh;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  body {
+    background-image: url('fondo.png');
+    background-size: cover;
+    margin: auto;
+    padding: 0;
+  }
+      
+}
+
+
+/* Tablets and Ipads screens (portrait) [   ] */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+
+  #gif {
+    margin: auto;
+    width: 100vw;
+  }
+
+  #png1 {
+    left: 83.5vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 11vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+  }
+      
+  #png3 {
+    left: 83.5vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 11vw;
+    z-index: 2;
+  }
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 250%;
+    left: 20vw;
+    margin: 2vh 0; 
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 5vh;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  body {
+    background-image: url('fondo.png');
+    background-size: cover;
+    margin: auto;
+    padding: 0;
+  }
+
+}
+
+
+/* Tablets and Ipads (landscape) [     ] */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    
+  #dominios {
+    left: 35vw;
+    position: absolute;
+    top: 0;
+  }
+      
+  #gif {
+    margin: auto;
+    width: 30.96vw;
+  }
+
+  #png1 {
+    left: 24vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 1vh 0;
+    padding: 0.5vh 1.5vh;
+    position: fixed;
+    top: 0;
+    width: 30.96vw;
+  }
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 100%;
+    left: 6vw;
+    margin: 2vh 0; 
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 3vh;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  #png3 {
+    left: 24vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+    z-index: 2;
+  }
+      
+  body {
+    background-image: url('fondo.png');
+    background-size: cover;
+    padding: 0;
+    margin: auto;
+  }
+
+}
+
+
+/* Low Resolution Tablets and Smartphones (Landscape) [  ] */
+@media (min-width: 481px) and (max-width: 767px) and (orientation: landscape) {
+
+  #dominios {
+    left: 35vw;
+    position: absolute; 
+    top: 0;
+  }
+
+  #gif {
+    margin: auto;
+    width: 30.96vw;
+  }
+
+  #png1 {
+    left: 24vw;
+    margin:auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 1vh 0;
+    padding: 0.5 1.5vh;
+    position: fixed;
+    top: 0;
+    width: 30.96vw;
+  }
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 130%;
+    left: 6vw;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 3vh;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  #png3 {
+    left: 24vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 5.5vw;
+    z-index: 2;
+  }
+
+  body {
+    background-image: url('fondo.png');
+    background-size: cover;
+    margin: auto;
+    padding: 0;
+  }
+
+}
+
+
+/* Normal mobile screens (portrait) [ ] */
+@media (min-width: 320px) and (max-width: 480px) and (orientation: portrait) {
+
+  body {
+    background-image: url('fondo.png');
+    background-size: cover;
+    margin:auto;
+    padding: 0;
+  }
+
+  #gif {
+    margin: auto;
+    width: 100vw;
+  }
+
+  #png1 {
+    left: 83.5vw;
+    margin: auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 11vw;
+  }
+
+  #png2 {
+    box-sizing: border-box;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+  }
+
+  #tabla1 {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    font-size: 200%;
+    left: 20vw;
+    margin: 2vh 0;
+    padding: 1vh 3vh;
+    position: fixed;
+    table-layout: fixed;
+    text-align: center;
+    top: 5vh;
+    visibility: hidden;
+    z-index: 1;
+  }
+
+  #png3 {
+    left: 83.5vw;
+    margin:auto;
+    position: fixed;
+    top: 3.5vh;
+    width: 11vw;
+    z-index: 2;
+  }
+
+  input[type=text] {
+    background-color: #fff;
+    border: 1px solid red; 
+    box-sizing: border-box;
+    color: black;
+    cursor: pointer;
+    display: block;
+    height: 12.5vh;
+    margin-left: auto;
+    margin-right: auto;
+    outline: red;
+    padding: 12px 20px;
+    width: 55vw;
+  }
+
+  input[type=text]:focus {
+    background-color: #fff;
+    border: 1px solid red;
+    box-sizing: border-box;
+    color: black;
+    cursor: pointer;
+    display: block;
+    height: 15vh;
+    margin-left: auto;
+    margin-right: auto;
+    outline: red;
+    padding: 12px 20px;
+    width: 70vw;
+  }
+
+}
+    </style>
+  </head>
+  <body>
+    <header>
+      <figure> 
+        <img id="gif" src="dhunter.gif" alt="DHUNTER header gif animation">
+        <figcaption>
+          DHunter header gif animation. The 'D' character is a bow shooting an arrow. 
+        </figcaption>
+      </figure> 
+      <div class="content">
+        <figure>
+          <img id="png1" src="dhamburgesa.png" alt="hamburger button. Open modal showing urls">
+          <figcaption>
+          Hamburger button. Opens a hidden modal box. 
+          </figcaption>
+        </figure>
+        <figure>
+          <img id="png3" src="botonCierre.png" style="display: none;" alt="button. Close the modal">
+          <figcaption>
+          Red cross button. Closes the modal.
+          </figcaption>
+        </figure>
+      </div>
+    </header>
+    <nav id="tabla1" class="content">
+    <a id="link1" href="#HOME">Home</a>
+    <p><!-- The .apk "NOTAS" seems to don't like let me copy and paste code using br tags. --></p>
+    <a id="link2" href="#GITHUB">Github</a>
+    <p></p>
+    <a id="link3" href="#DOWNLOAD">Download</a>
+    <p></p>
+    <a id="link4" href="#BUGS">Bugs</a>
+    </nav>
+
+    <main id="dominios" class="content">
+      <p>Dominios:</p>
+      <form>
+        <input type="text" class="dominio" id="dominio1" placeholder="https://example.com/">
+        <button type="button" id="botonAgregarDominio1">+</button>
+        <input type="text" class="diccionario" id="diccionario1" placeholder="https://example.com/lista.txt">
+        <button type="button" id="botonAgregarDiccionario1">+</button>
+        <input type="text" id="dominio2" placeholder="https://example.com/">
+        <button type="button" id="botonAgregarDominio2">+</button>
+        <input type="text" id="diccionario2" placeholder="https://example.com/lista.txt">
+        <button type="button" id="botonAgregarDiccionario2">+</button>
+      </form>
+    </main>
+    <aside>
+      <img id="png2" src="modal.png" style="display: none;" alt="modal window showing a href links">
+    </aside>
+    <footer>
+    <!-- Search Engines Like Footers?
+Just in case -->
+    </footer>
+    <script>
+"use strict";
+var PNG1 = document.getElementById("png1");
+var PNG2 = document.getElementById("png2");
+var PNG3 = document.getElementById("png3");
+var NAV = document.getElementsByClassName("content");
+var TABLA1 = document.getElementById("tabla1");
+var BODY = document.getElementsByTagName("body")[0];
+var GIF = document.getElementById("gif");
+var bADic1 = document.getElementById("botonAgregarDiccionario1");
+var bADom1 = document.getElementById("botonAgregarDominio1");
+
+function mostrarWeb() {
+
+  setTimeout(function() {
+    for(var j = 0; j < NAV.length; ++j)
+      NAV[j].style.display="block";
+  } ,1400);
+
+}
+
+
+function ocultarWeb() {
+
+  NAV.style.display="none";
+  PNG2.style.display="none";
+  TABLA1.style.display="none";
+
+}
+
+
+function crearITDIC() {
+
+  var elemento = document.createElement("input");
+  elemento.type = "text";
+  elemento.class = "diccionario";
+  elemento.placeholder = "example.com/list.txt";
+
+  document.getElementById("dominios").appendChild(elemento);
+  return elemento;
+
+}
+
+
+function crearITDOM() {
+
+  var elemento = document.createElement("input");
+  elemento.type = "text";
+  elemento.class = "dominio";
+  elemento.placeholder = "example.com";
+
+  document.getElementById("dominios").appendChild(elemento);
+  return elemento;
+
+}
+
+
+/*
+var boton = new Object();
+boton.a="";
+boton.b=""; 
+*/
+
+
+PNG1.addEventListener("click", function(){PNG2.style.display="block";PNG3.style.display="block";PNG1.style.display="none";TABLA1.style.display="table";TABLA1.style.visibility="visible";});
+PNG3.addEventListener("click", function(){PNG2.style.display="none";PNG3.style.display="none";PNG1.style.display="block";TABLA1.style.display="none";TABLA1.style.visibility="hidden";});
+GIF.addEventListener("load", function(){mostrarWeb()});
+
+
+/*
+bADic1.addEventListener("click", function(){boton.a = crearITDIC()});
+bADom1.addEventListener("click", funcion(){boton.b = crearITDOM()});
+*/
+
+
+mostrarWeb();
+    </script>
+  </body>
+</html>
